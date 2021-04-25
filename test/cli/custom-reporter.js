@@ -7,13 +7,27 @@ const expectedOutput = require( "./fixtures/expected/tap-outputs" );
 const execute = require( "./helpers/execute" );
 
 QUnit.module( "find-reporter", function() {
-	QUnit.test( "correctly finds js-reporters reporter by name", function( assert ) {
-		const reporter = findReporter( "tap" );
+	QUnit.test( "tap reporter from js-reporters is bundled", function( assert ) {
+		assert.strictEqual( QUnit.reporters.tap, JSReporters.TapReporter );
+	} );
+
+	QUnit.test( "find console reporter", function( assert ) {
+		const reporter = findReporter( "console", QUnit.reporters );
+		assert.strictEqual( reporter, JSReporters.ConsoleReporter );
+	} );
+
+	QUnit.test( "find tap reporter", function( assert ) {
+		const reporter = findReporter( "tap", QUnit.reporters );
 		assert.strictEqual( reporter, JSReporters.TapReporter );
 	} );
 
-	QUnit.test( "correctly finds npm package reporter by name", function( assert ) {
-		const reporter = findReporter( "npm-reporter" );
+	QUnit.test( "default to tap reporter", function( assert ) {
+		const reporter = findReporter( undefined, QUnit.reporters );
+		assert.strictEqual( reporter, JSReporters.TapReporter );
+	} );
+
+	QUnit.test( "find extra reporter package", function( assert ) {
+		const reporter = findReporter( "npm-reporter", QUnit.reporters );
 		assert.strictEqual( reporter, NPMReporter );
 	} );
 } );

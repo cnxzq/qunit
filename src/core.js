@@ -3,6 +3,7 @@ import { window, document, setTimeout } from "./globals";
 import equiv from "./equiv";
 import dump from "./dump";
 import module from "./module";
+import reporters from "./reporters";
 import Assert from "./assert";
 import Logger from "./logger";
 import Test, { test, pushFailure } from "./test";
@@ -42,6 +43,7 @@ extend( QUnit, {
 
 	dump,
 	equiv,
+	reporters,
 	is,
 	objectType,
 	on,
